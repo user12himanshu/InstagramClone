@@ -102,6 +102,13 @@ class _UsernamePageState extends State<UsernamePage> {
                   collection
                       .doc(user!.uid)
                       .update({"username": controller.text});
+                  collection.doc(user!.uid).update({
+                    "post": [],
+                    "followers": [],
+                    "following": [],
+                    "Bio": "",
+                    "Profilepic": ""
+                  });
                   print("Done");
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return HomeScreen();
