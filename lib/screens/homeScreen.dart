@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       setState(() {
                         index = page;
                         if (page == 0) {
+                          homeicon = Icons.home_filled;
                           searchicon = Icons.search_outlined;
                           notificationicon = FontAwesomeIcons.heart;
                           profileicon = Icons.person_outline;

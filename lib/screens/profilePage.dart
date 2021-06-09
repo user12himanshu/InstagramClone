@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/Components/images/Profile%20Picture.dart';
 import 'package:instagram/Components/profilePage/no_of_card.dart';
+import 'package:instagram/constants.dart';
+import 'package:instagram/size_config.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -61,10 +63,64 @@ class _ProfilePageState extends State<ProfilePage> {
                 ],
               ),
               Container(
-                padding: EdgeInsets.all(20),
+                width: SizeConfig().init(context)[0] * 0.1,
+                padding: EdgeInsets.fromLTRB(
+                    20, 20, SizeConfig().init(context)[0] * 0.18, 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Text("data"), Text("Bio")],
+                  children: [
+                    Text(snapshot.data!.get("Name"),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: ktextColor)),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      snapshot.data!.get("Bio"),
+                      style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 17,
+                          color: ktextColor),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: OutlinedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Edit Profile",
+                    style: TextStyle(
+                        color: ktextColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.5),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                      fixedSize: Size(SizeConfig().init(context)[0], 20),
+                      splashFactory: NoSplash.splashFactory,
+                      side: BorderSide(color: Colors.grey[400]!)),
+                ),
+              ),
+              Container(
+                height: SizeConfig().init(context)[1],
+                child: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 0.5,
+                  ),
+                  itemCount: posts!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                        padding: EdgeInsets.all(10),
+                        height: 100,
+                        width: 100,
+                        child:
+                            Image.network(snapshot.data!.get("post")[index]));
+                  },
                 ),
               )
             ],
