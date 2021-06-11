@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram/Components/images/Profile%20Picture.dart';
 import 'package:instagram/Components/profilePage/no_of_card.dart';
@@ -47,7 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ProfilePicture(),
+                  ProfilePicture(
+                    url: snapshot.data!.get("Profilepic"),
+                  ),
                   NoofCard(
                     no: posts!.length.toString(),
                     label: "Posts",
@@ -105,21 +108,26 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Container(
+                padding: EdgeInsets.all(3.0),
                 height: SizeConfig().init(context)[1],
                 child: GridView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    childAspectRatio: 0.5,
+                    childAspectRatio: 1.0,
                   ),
                   itemCount: posts!.length,
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                        padding: EdgeInsets.all(10),
-                        height: 100,
-                        width: 100,
-                        child:
-                            Image.network(snapshot.data!.get("post")[index]));
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white)),
+                      child: GridTile(
+                        child: Image.network(
+                          snapshot.data!.get("post")[index],
+                          scale: 1.5,
+                        ),
+                      ),
+                    );
                   },
                 ),
               )

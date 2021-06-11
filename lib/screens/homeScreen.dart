@@ -67,6 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ];
 
               return Scaffold(
+                  resizeToAvoidBottomInset: false,
                   bottomNavigationBar: BottomNavigationBar(
                     currentIndex: index,
                     onTap: (int page) {
